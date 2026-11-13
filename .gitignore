@@ -1,7 +1,20 @@
-aidata/
+# Local / build junk
 __pycache__/
 *.pyc
 *.bak
 *.backup
 shell.qml.before-mister
 .DS_Store
+
+# AI memory / agent scratch — never ship
+aidata/
+.claude/
+.cursor/
+CLAUDE.md
+claude.md
+AGENTS.md
+CONVERSATIONS.md
+RUNLOG.md
+DECISIONS.md
+GEMINI.md
+.cursorrules
