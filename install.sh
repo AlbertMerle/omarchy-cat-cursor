@@ -58,7 +58,7 @@ upsert_marked_block() {
   touch "$file"
   local tmp
   tmp="$(mktemp)"
-  if grep -Fq "$begin" "$file"; then
+  if grep -F -- "$begin" "$file" >/dev/null; then
     awk -v begin="$begin" -v end="$end" -v block_file="$block_file" '
       BEGIN {
         while ((getline line < block_file) > 0) {
@@ -82,7 +82,7 @@ upsert_marked_block() {
 scrub_legacy_lua() {
   local file="$1"
   [[ -f $file ]] || return 0
-  grep -Fq "$MARKER_BEGIN" "$file" && return 0
+  grep -F -- "$MARKER_BEGIN" "$file" >/dev/null && return 0
   local tmp
   tmp="$(mktemp)"
   grep -Ev 'cat-cursor|Cat attack|Toggle cat cursor|Cat cursor is a small overlay|Cat cursor overlay' "$file" >"$tmp" || true

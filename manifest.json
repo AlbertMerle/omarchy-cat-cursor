@@ -5,7 +5,8 @@
   "version": "1.0.0",
   "author": "AlbertMerle",
   "license": "MIT",
-  "description": "Animated cat cursor for Hyprland. I gave my agent several photos of my cat and it made me a cursor just like him. It makes me so happy and I want to share it with the world. Toggle with Super+Alt+C.",
+  "homepage": "https://github.com/AlbertMerle/omarchy-cat-cursor",
+  "description": "Animated cat pointer for Hyprland and Omarchy, modeled after my cat Mister. Toggle with Super+Alt+C; left click for an attack animation.",
   "kinds": [
     "service"
   ],
