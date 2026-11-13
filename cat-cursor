@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -eu
+cd "$(dirname "$(readlink -f "$0")")"
+case "${1:-start}" in
+start) systemctl --user start cat-cursor.service ;;
+stop) systemctl --user stop cat-cursor.service ;;
+toggle) if systemctl --user is-active --quiet cat-cursor.service; then "$0" stop; else "$0" start; fi ;;
+attack) quickshell ipc -p "$PWD" call cat attack ;;
+run)
+  restore() { hyprctl eval 'hl.config({cursor = {invisible = false}})'  >/dev/null 2>&1 || true; }
+  trap restore EXIT
+  trap 'exit 0' TERM INT
+  quickshell -p "$PWD" &
+  child=$!
+  sleep 1
+  # Config reloads reset cursor:invisible, so keep re-asserting it while the cat runs.
+  keep_hidden() {
+    while kill -0 "$child" 2>/dev/null; do
+      if [ "$(hyprctl getoption cursor:invisible -j 2>/dev/null | grep -o '"bool": *[a-z]*' | grep -o '[a-z]*$')" != true ]; then
+        hyprctl eval 'hl.config({cursor = {invisible = true}})' >/dev/null 2>&1 || true
+      fi
+      sleep 1
+    done
+  }
+  keep_hidden &
+  keeper=$!
+  trap 'kill "$child" "$keeper" 2>/dev/null || true; restore' EXIT
+  wait "$child"
+  ;;
+*) echo 'Usage: cat-cursor [start|stop|toggle|attack]' >&2; exit 2 ;;
+esac

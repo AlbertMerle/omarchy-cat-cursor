@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.AlbertMerle.cat-cursor",
+  "name": "Cat Cursor",
+  "version": "1.0.0",
+  "author": "AlbertMerle",
+  "license": "MIT",
+  "description": "Animated cat cursor for Hyprland. I gave my agent several photos of my cat and it made me a cursor just like him. It makes me so happy and I want to share it with the world. Toggle with Super+Alt+C.",
+  "kinds": [
+    "service"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "service": "Service.qml"
+  }
+}

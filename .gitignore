@@ -1,0 +1,7 @@
+aidata/
+__pycache__/
+*.pyc
+*.bak
+*.backup
+shell.qml.before-mister
+.DS_Store
